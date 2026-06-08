@@ -1,0 +1,489 @@
+{
+  "info": {
+    "_postman_id": "ceb7f3c5-4f2a-4202-a235-6bf5b1aa4315",
+    "name": "Pattern - Database Per Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15430947"
+  },
+  "item": [
+    {
+      "name": "Auth Service",
+      "item": [
+        {
+          "name": "Login T",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"marija\",\n  \"password\": \"marija123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login G",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"srdjan\",\n  \"password\": \"srdjan123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login A",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"nenad\",\n  \"password\": \"nenad123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5MjE2MjMsImlhdCI6MTc4MDgzNTIyMywiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiVE9VUklTVCIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoibWFyaWphIn0.5yWpRTtLEMnj5hKkp3QifPeEZuUqG0i7G2zfcaYX25E",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Context",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5MjE2MjMsImlhdCI6MTc4MDgzNTIyMywiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiVE9VUklTVCIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoibWFyaWphIn0.5yWpRTtLEMnj5hKkp3QifPeEZuUqG0i7G2zfcaYX25E",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/context",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "context"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register orchestrated SAGA",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"john\",\n  \"lastname\": \"ORCHESTRATED\",\n  \"username\": \"TESTORCHESTRATED\",\n  \"password\": \"12345678\",\n  \"password_c\": \"12345678\",\n  \"email\": \"something@to.test\",\n  \"role\": \"guide\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check orchestrated SAGA",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"john\",\n  \"lastname\": \"test\",\n  \"username\": \"TEST\",\n  \"password\": \"SecurePass123\",\n  \"password_c\": \"SecurePass123\",\n  \"email\": \"something@to.test\",\n  \"role\": \"guide\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/register/status/4ead83e4-c8cf-4cc2-8670-3f217d9f71b3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "register",
+                "status",
+                "4ead83e4-c8cf-4cc2-8670-3f217d9f71b3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register choreographed SAGA",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"john\",\n  \"lastname\": \"CHOREOGRAPHED\",\n  \"username\": \"TESTCHOREOGRAPHED\",\n  \"password\": \"12345678\",\n  \"password_c\": \"12345678\",\n  \"email\": \"something2@to.test\",\n  \"role\": \"guide\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/choreography/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "choreography",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check choreographed SAGA completion",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"john\",\n  \"lastname\": \"test\",\n  \"username\": \"TEST\",\n  \"password\": \"SecurePass123\",\n  \"password_c\": \"SecurePass123\",\n  \"email\": \"something@to.test\",\n  \"role\": \"guide\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth-service/api/choreography/register/status/21cdcdfc-aa99-44e1-9f87-632abde24f18",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "auth-service",
+                "api",
+                "choreography",
+                "register",
+                "status",
+                "21cdcdfc-aa99-44e1-9f87-632abde24f18"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Service",
+      "item": [
+        {
+          "name": "Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5NDA1MzcsImlhdCI6MTc4MDg1NDEzNywiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiR1VJREUiLCJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6InNyZGphbiJ9.EscU9GMTN-5QYZxxCdqnTjbL7wZX1siCbjwywLZG3V4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/stakeholder-service/api/users/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "stakeholder-service",
+                "api",
+                "users",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5MjE2ODgsImlhdCI6MTc4MDgzNTI4OCwiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiVE9VUklTVCIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoibWFyaWphIn0.u-ybHNWjcpI5fVMxbdx2H0HcH9er3wLLVN-3OLx9Ew8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Marijaa\",\n  \"lastName\": \"Azurirano\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:9000/stakeholder-service/api/users/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "stakeholder-service",
+                "api",
+                "users",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Profiles For Admin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5MjE4NTMsImlhdCI6MTc4MDgzNTQ1MywiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiQURNSU4iLCJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6Im5lbmFkIn0.0Hz6poG_3vX_8PEvNLl9_L5JN8bepkG_zSqwnnhk8n4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/stakeholder-service/api/users/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "stakeholder-service",
+                "api",
+                "users",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile For Admin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5MjE4NTMsImlhdCI6MTc4MDgzNTQ1MywiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiQURNSU4iLCJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6Im5lbmFkIn0.0Hz6poG_3vX_8PEvNLl9_L5JN8bepkG_zSqwnnhk8n4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/stakeholder-service/api/users/all/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "stakeholder-service",
+                "api",
+                "users",
+                "all",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Block And Unblock Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA5MjE4NTMsImlhdCI6MTc4MDgzNTQ1MywiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiQURNSU4iLCJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6Im5lbmFkIn0.0Hz6poG_3vX_8PEvNLl9_L5JN8bepkG_zSqwnnhk8n4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/stakeholder-service/api/users/block/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "stakeholder-service",
+                "api",
+                "users",
+                "block",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

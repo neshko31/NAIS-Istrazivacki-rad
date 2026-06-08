@@ -1,0 +1,33 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: false
+      
+spring:
+  application:
+    name: gateway-api
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
+        - id: stakeholder-service
+          uri: lb://stakeholders-service
+          predicates:
+            - Path=/stakeholder-service/**
+          filters:
+            - StripPrefix=1

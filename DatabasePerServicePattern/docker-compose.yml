@@ -1,0 +1,144 @@
+services:
+  # RabbitMQ broker
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports:
+      - "5672:5672"    # AMQP port
+      - "15672:15672"  # UI: http://localhost:15672 (guest/guest)
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # Auth service
+  auth-service:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8082
+      - JWT_SECRET=your-secure-secret-key-which-is-so-lovely
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - EUREKA_INSTANCE_HOSTNAME=auth-service
+      - DB_HOST=auth_data
+      - DB_PORT=5432
+      - DB_USER=admin1
+      - DB_PASSWORD=admin
+      - DB_NAME=auth_db
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    depends_on:
+      auth_data:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+
+  auth_data:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=admin1
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=auth_db
+    volumes:
+      - auth-pgdata:/var/lib/postgresql/data
+      - ./auth/data.sql:/docker-entrypoint-initdb.d/data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin1 -d auth_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    ports:
+      - "5432:5432"
+
+  # Stakeholder service
+  stakeholder-service:
+    build: ./stakeholders_service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stakeholder_data:5432/stakeholder_db
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - SPRING_DATASOURCE_USERNAME=admin1
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    depends_on:
+      stakeholder_data:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+
+  stakeholder_data:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=admin1
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=stakeholder_db
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    volumes:
+      - shared-pgdata:/var/lib/postgresql/data
+      - ./stakeholders_service/src/main/resources/data.sql:/docker-entrypoint-initdb.d/data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin1 -d stakeholder_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    ports:
+      - "5433:5432"
+  
+  # Eureka and API Gateway
+  eureka-server:
+    build:
+      context: ./EurekaService
+      dockerfile: Dockerfile
+    image: eureka-server:latest
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+
+  gateway-api:
+    build:
+      context: ./GatewayService
+      dockerfile: Dockerfile
+    image: gateway-api:latest
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      stakeholder-service:
+        condition: service_started
+    ports:
+      - "9000:9000"
+
+volumes:
+  auth-pgdata:
+  shared-pgdata:

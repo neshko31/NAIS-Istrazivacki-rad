@@ -1,0 +1,128 @@
+{
+  "info": {
+    "_postman_id": "3e68f515-ab95-4b42-a880-24b389d0da62",
+    "name": "Antipattern",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34710415"
+  },
+  "item": [
+    {
+      "name": "Login T [AP]",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"marija\",\n  \"password\": \"marija123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8079/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8079",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login A [AP]",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"nenad\",\n  \"password\": \"nenad123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8079/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8079",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register [AP]",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstname\": \"john\",\n  \"lastname\": \"test\",\n  \"username\": \"TEST\",\n  \"password\": \"SecurePass123\",\n  \"password_c\": \"SecurePass123\",\n  \"email\": \"something@to.test\",\n  \"role\": \"guide\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8079/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8079",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Profile [AP]",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODA4NDQwMDYsImlhdCI6MTc4MDc1NzYwNiwiaXNzIjoiQXV0aFNlcnZpY2UiLCJyb2xlIjoiVE9VUklTVCIsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoibWFyaWphIn0.XvffsPeW1oXsFxe5BH8t5W590GHXLtEuuwGe4rTje38",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/users/profile",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "users",
+            "profile"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

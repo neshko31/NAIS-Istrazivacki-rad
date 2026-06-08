@@ -1,0 +1,28 @@
+package utils
+
+import (
+	"golang.org/x/crypto/bcrypt"
+	"errors"
+)
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	if err != nil {
+		return "", errors.New("Failed to hash password")
+	}
+
+	return string(bytes), nil
+}
+
+func CheckPassword(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
+
+func ValidatePassword(password string) error {
+	if len(password) < 6 {
+		return errors.New("Password must be at least 6 characters long")
+	}
+
+	return nil
+}

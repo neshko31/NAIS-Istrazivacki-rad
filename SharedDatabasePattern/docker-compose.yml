@@ -1,0 +1,48 @@
+services:
+  auth-service:
+    build: auth/
+    ports:
+      - "8079:8079"
+    environment:
+      - JWT_SECRET=your-secure-secret-key-which-is-so-lovely
+      - DB_HOST=shared-data
+      - DB_PORT=5432
+      - DB_USER=admin1
+      - DB_PASSWORD=admin
+      - DB_NAME=shared_db
+    depends_on:
+      shared-data:
+        condition: service_healthy
+
+  stakeholder-service:
+    build: stakeholders_service/
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shared-data:5432/shared_db
+      - SPRING_DATASOURCE_USERNAME=admin1
+      - SPRING_DATASOURCE_PASSWORD=admin
+    depends_on:
+      shared-data:
+        condition: service_healthy
+
+  shared-data:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=admin1
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=shared_db
+    volumes:
+      - shared-pgdata:/var/lib/postgresql/data
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin1 -d shared_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    ports:
+      - "5434:5432"
+
+volumes:
+  shared-pgdata:

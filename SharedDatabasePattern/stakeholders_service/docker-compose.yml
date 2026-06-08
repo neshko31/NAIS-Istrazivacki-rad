@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+
+
+  stakeholders-service:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: on-failure
+    networks:
+      - stakeholders-network
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://stakeholders-db:5432/stakeholders_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - stakeholders-db
+
+
+
+  stakeholders-db:
+    image: postgres:13
+    restart: always
+    networks:
+      - stakeholders-network
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: stakeholders_db
+    volumes:
+      - stakeholders-db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+
+volumes:
+  stakeholders-db-data:
+
+
+networks:
+  stakeholders-network:
+    driver: bridge
